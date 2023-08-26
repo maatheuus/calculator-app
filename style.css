@@ -1,0 +1,62 @@
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  background-color: #a4a2a270;
+}
+
+header {
+  background-color: white;
+  margin: auto;
+
+  height: 150px;
+  width: 450px;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+@media (min-width: 700px) {
+  header {
+    width: 600px;
+    margin: auto;
+    height: 200px;
+  }
+}
+
+header > span.data {
+  display: inline-block;
+  margin: auto;
+}
+
+header > span.day {
+  /* text-align: left; */
+}
+
+header > span.month {
+  /* text-align: center; */
+}
+
+header > span.year {
+  /* text-align: right; */
+}
+
+header > span > input {
+  display: block;
+}
+
+/* .bola {
+  border: 1px solid purple;
+  background-color: purple;
+  width: 8%;
+  display: block;
+  border-radius: 50%;
+  height: 50px;
+} */
