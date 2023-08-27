@@ -11,53 +11,72 @@ body {
   margin: 0px;
   padding: 0px;
   background-color: #a4a2a270;
+  border: 1px solid black;
 }
 
-header {
+main {
   background-color: white;
-  margin: auto;
+  border: 1px solid black;
 
-  height: 150px;
-  width: 450px;
+  margin: auto;
+  margin-top: 50px;
+
   padding: 10px;
-  border-bottom: 1px solid black;
+  width: 600px;
+  height: 500px;
 }
 
-@media (min-width: 700px) {
-  header {
-    width: 600px;
+@media (max-width: 700px) {
+  main {
+    height: 500px;
+    width: 450px;
+
     margin: auto;
-    height: 200px;
+    margin-top: 50px;
   }
 }
 
-header > span.data {
-  display: inline-block;
+.container--input {
+  background-color: white;
   margin: auto;
+  margin-left: 29px;
+  border: 1px solid black;
+
+  height: 115px;
+  width: 450px;
+  padding: 10px;
 }
 
-header > span.day {
-  /* text-align: left; */
+span.data {
+  color: gray;
+  font-size: x-small;
+  text-transform: uppercase;
+
+  display: inline-block;
+  padding-top: 10px;
+
+  margin: auto;
+  margin-top: 15px;
+  margin-left: 18px;
 }
 
-header > span.month {
-  /* text-align: center; */
-}
-
-header > span.year {
-  /* text-align: right; */
-}
-
-header > span > input {
+.container--input > span > input {
   display: block;
-  margin-top: 10px;
+  border-radius: 3px;
+
+  width: 69px;
+  height: 31px;
+  margin-top: 5px;
+  margin-left: 8px;
 }
 
-/* .bola {
-  border: 1px solid purple;
-  background-color: purple;
-  width: 8%;
+main > .saida--display {
+  background-color: lightgray;
+  /* display: block; */
+  height: 300px;
+}
+
+main > .saida--display > span {
   display: block;
-  border-radius: 50%;
-  height: 50px;
-} */
+  margin: 50px;
+}
