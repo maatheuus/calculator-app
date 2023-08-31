@@ -1,10 +1,10 @@
-.attribution {
-  font-size: 11px;
-  text-align: center;
+@font-face {
+  font-family: "Poppins";
+  src: url("assets/fonts/Poppins-Bold.ttf");
 }
-
-.attribution a {
-  color: hsl(228, 45%, 44%);
+@font-face {
+  font-family: "Poppins-Regular";
+  src: url("assets/fonts/Poppins-Bold.ttf");
 }
 
 body {
@@ -16,12 +16,12 @@ body {
 
 main {
   background-color: white;
-  border: 1px solid black;
+  border-radius: 21px 21px 130px 21px;
 
   margin: auto;
   margin-top: 50px;
-
   padding: 10px;
+
   width: 600px;
   height: 500px;
 }
@@ -36,22 +36,41 @@ main {
   }
 }
 
-.container--input {
+/* Parte de cima do display*/
+
+#container--input {
   background-color: white;
+  border-bottom: 1px solid #808080ba;
+
   margin: auto;
   margin-left: 29px;
-  border: 1px solid black;
+  padding: 10px;
 
   height: 115px;
   width: 450px;
-  padding: 10px;
+}
+
+@media (max-width: 700px) {
+  #container--input {
+    height: 115px;
+    width: 340px;
+  }
+}
+
+@media (max-width: 700px) {
+  #container--input > .data {
+    font-size: 10px;
+    display: inline-block;
+    margin-left: 15px;
+  }
 }
 
 span.data {
-  color: gray;
-  font-size: x-small;
-  text-transform: uppercase;
+  color: #9a9999;
+  font-family: "Poppins-Regular";
+  font-size: 10px;
 
+  text-transform: uppercase;
   display: inline-block;
   padding-top: 10px;
 
@@ -60,9 +79,22 @@ span.data {
   margin-left: 18px;
 }
 
-.container--input > span > input {
+@media (max-width: 700px) {
+  #container--input > span > input {
+    display: block;
+    border-radius: 6px;
+    border: 1px solid #808080ba;
+
+    width: 56px;
+    height: 31px;
+    margin-top: 5px;
+    margin-left: -1px;
+  }
+}
+#container--input > span > input {
   display: block;
-  border-radius: 3px;
+  border: 1px solid #808080ba;
+  border-radius: 4px;
 
   width: 69px;
   height: 31px;
@@ -70,13 +102,63 @@ span.data {
   margin-left: 8px;
 }
 
-main > .saida--display {
-  background-color: lightgray;
-  /* display: block; */
-  height: 300px;
+.btn {
+  background-color: #844ffa;
+  color: white;
+  font-size: 30px;
+  border: 2px solid;
+  border-radius: 50%;
+
+  width: 52px;
+  height: 44px;
+
+  text-align: center;
+  transform: translate(428px, 23px);
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: black;
 }
 
-main > .saida--display > span {
-  display: block;
-  margin: 50px;
+@media (max-width: 700px) {
+  .btn {
+    transform: translate(130px, 23px);
+  }
+}
+
+/* Parte de baixo do display*/
+#saida--display {
+  height: 300px;
+  display: grid;
+  margin: 10px;
+}
+
+#saida--display > .saida {
+  font-size: 50px;
+  font-family: "Poppins";
+  text-transform: lowercase;
+  color: black;
+  margin-top: 30px;
+}
+
+.pontilhado {
+  display: inline-block;
+  border: 0px solid black;
+  background-color: #844ffa;
+
+  width: 9px;
+  height: 30px;
+
+  transform: rotate(90deg) translate(5px, 13px);
+  margin-right: 9px;
+  margin-left: 28px;
+}
+
+.attribution {
+  font-size: 11px;
+  text-align: center;
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
 }

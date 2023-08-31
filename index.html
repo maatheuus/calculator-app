@@ -15,34 +15,39 @@
 <body>
 
   <main>
-    <div class="container--input">
-      <span class="data day">Day
-        <input type="text" placeholder="DD" class="input input--dd"></input>
+    <div id="container--input">
+      <span class="data">Day
+        <input type="text" placeholder="DD" name="input--data"></input>
       </span>
-      <span class="data month">Month
-        <input type="text" placeholder="MM" class="input input--mm"></input>
+      <span class="data">Month
+        <input type="text" placeholder="MM" name="input--data"></input>
       </span>
-      <span class="data year">Year
-        <input type="text" placeholder="YYYY" class="input input--yyyy"></input>
+      <span class="data">Year
+        <input type="text" placeholder="YYYY" name="input--data"></input>
       </span>
+      <div class="btn">&downarrow;</div>
     </div>
 
-    <div class="saida--display">
-      <span>
-        <span class="pontilhado">--</span>
+    <div id="saida--display">
+      <span class="saida">
+        <span class="pontilhado"></span>
+        <span class="pontilhado"></span>
         years
       </span>
 
-      <span>
-        <span class="pontilhado">--</span>
+      <span class="saida">
+        <span class="pontilhado"></span>
+        <span class="pontilhado"></span>
         months
       </span>
 
-      <span>
-        <span class="pontilhado">--</span>
+      <span class="saida">
+        <span class="pontilhado"></span>
+        <span class="pontilhado"></span>
         days
       </span>
     </div>
+    <div class="designe differ"></div>
   </main>
 
   <footer>
@@ -52,5 +57,5 @@
   </footer>
 
 </body>
-
+<script src="script.js"></script>
 </html>
