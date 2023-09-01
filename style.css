@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "Poppins";
-  src: url("assets/fonts/Poppins-Bold.ttf");
+  font-family: 'Poppins';
+  src: url('assets/fonts/Poppins-Bold.ttf');
 }
 @font-face {
-  font-family: "Poppins-Regular";
-  src: url("assets/fonts/Poppins-Bold.ttf");
+  font-family: 'Poppins-Regular';
+  src: url('assets/fonts/Poppins-Bold.ttf');
 }
 
 body {
@@ -67,7 +67,7 @@ main {
 
 span.data {
   color: #9a9999;
-  font-family: "Poppins-Regular";
+  font-family: 'Poppins-Regular';
   font-size: 10px;
 
   text-transform: uppercase;
@@ -135,7 +135,7 @@ span.data {
 
 #saida--display > .saida {
   font-size: 50px;
-  font-family: "Poppins";
+  font-family: 'Poppins';
   text-transform: lowercase;
   color: black;
   margin-top: 30px;
@@ -152,6 +152,14 @@ span.data {
   transform: rotate(90deg) translate(5px, 13px);
   margin-right: 9px;
   margin-left: 28px;
+}
+
+.container-saida {
+  color: #844ffa;
+  font-family: 'Poppins';
+  display: inline-block;
+  width: 103px;
+  height: 64px;
 }
 
 .attribution {
