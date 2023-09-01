@@ -127,13 +127,13 @@ span.data {
 }
 
 /* Parte de baixo do display*/
-#saida--display {
+#container--display {
   height: 300px;
   display: grid;
   margin: 10px;
 }
 
-#saida--display > .saida {
+#container--display > .saida {
   font-size: 50px;
   font-family: 'Poppins';
   text-transform: lowercase;
@@ -141,7 +141,7 @@ span.data {
   margin-top: 30px;
 }
 
-.pontilhado {
+/* .pontilhado {
   display: inline-block;
   border: 0px solid black;
   background-color: #844ffa;
@@ -152,17 +152,34 @@ span.data {
   transform: rotate(90deg) translate(5px, 13px);
   margin-right: 9px;
   margin-left: 28px;
-}
+} */
 
 .container-saida {
   color: #844ffa;
   font-family: 'Poppins';
+
   display: inline-block;
-  width: 103px;
+  width: 76px;
   height: 64px;
+}
+.container--year {
+  font-size: 55px;
+  margin-right: -8px;
+  margin-left: 19px;
+}
+.container--month {
+  font-size: 55px;
+  margin-right: -8px;
+  margin-left: 19px;
+}
+.container--days {
+  font-size: 55px;
+  margin-right: -8px;
+  margin-left: 19px;
 }
 
 .attribution {
+  margin-top: 80px;
   font-size: 11px;
   text-align: center;
 }
