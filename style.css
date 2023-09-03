@@ -100,6 +100,11 @@ span.data {
   margin-top: 5px;
   margin-left: 8px;
 }
+#input--day,
+#input--month,
+#input--year {
+  font-family: 'Poppins';
+}
 
 .btn {
   background-color: #844ffa;
@@ -196,7 +201,7 @@ span.data {
   font-size: x-small;
   color: #b30101;
   position: absolute;
-  opacity: 0;
+  opacity: 1;
   margin-top: -41px;
   margin-left: 26px;
 }
