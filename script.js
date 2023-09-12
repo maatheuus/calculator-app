@@ -9,30 +9,7 @@ const year = document.getElementById('input--year');
 const month = document.getElementById('input--month');
 const days = document.getElementById('input--day');
 
-console.log(inputData);
-
-//menssagens de erro a serem exibidas
-// DAY: Must be a valid day
-// MONTH: Must be a valid month
-// YEAR: Must be in the past
-
-//selecionar a class data também para o mesmo problema do erro, mensagem:'This field is required'
-console.log(document.querySelectorAll('.data'));
-console.log(document.getElementsByName('data'));
-
-//fazer isso para a remoção e adicionar a cor vermelha para a exibição de um erro ou vários erros
-// console.log(year.removeAttribute('style'));
-// console.log((year.style.border = '1px solid red'));
-// console.log(year.removeAttribute('style'));
-// console.log((year.style.border = '1px solid #808080ba'));
-
-//quando atualizar ou clicar sobre o input, é preciso arrumar e adicionar novamente os atributos originais
-
-// inputData.forEach(data => {
-//   data.addEventListener('click', function () {
-//     // console.log((year.style.border = '1px solid red'));
-//   });
-// });
+//quando clicar no botao é preciso arrumar o display pra quando não for possivel obter as entradas
 
 //colocando o primeiro HTML sem valores
 const html = {
@@ -43,12 +20,12 @@ const html = {
           <div class="container-saida ">- -</div>
           years
       </div>
-      
+
       <div class="saida">
           <div class="container-saida ">- -</div>
           months
       </div>
-      
+
       <div class="saida">
           <div class="container-saida">- -</div>
           days
@@ -80,19 +57,6 @@ const html = {
   },
 };
 html.HTMLdisplay();
-
-// rendererizando erros de entrada
-// const error = function () {
-//   document.querySelector('.month-error').style.opacity = 1;
-//   document.querySelector('.day-error').style.opacity = 1;
-//   document.querySelector('.year-error').style.opacity = 1;
-// };
-
-// const temp = setTimeout(() => {
-//   document.querySelector('.year-error').style.opacity = 0;
-//   document.querySelector('.month-error').style.opacity = 0;
-//   document.querySelector('.day-error').style.opacity = 0;
-// }, 4000);
 
 // selecionando todas as entradas
 // let dayError = document.querySelector('.day-error');
@@ -167,9 +131,22 @@ const erro = function () {
   });
 };
 
-btn.addEventListener('click', function () {
+// function getAge() {
+//   let hoje = new Date();
+//   hoje.getFullYear() - year.value;
+//   hoje.getMonth() + 1 - month.value;
+//   hoje.getDate() - days.value;
+
+//   return;
+// }
+// console.log(getAge());
+
+const errResults = function () {
   const valor = [Number(days.value), Number(month.value), Number(year.value)];
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////
+  //Erros da entrada
+  // console.log(valor);
   if (isNaN(...valor)) {
     htmlData('X Invalid input');
   }
@@ -202,31 +179,57 @@ btn.addEventListener('click', function () {
   }
 
   ////////////////////////////////////////////////////////////////////
-  // prettier-ignore
-  const meses = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-  // let date = new Date(year.value, month.value, 0);
-  // const today = date.getDate();
-  // const currentMonth = date.getMonth() + 1;
+  const dayInTheMonth = function () {
+    let date = new Date(year.value, month.value, 0);
+
+    return date.getDate();
+  };
 
   if (year.value > date.getFullYear()) {
-    // err._yearError('Must be in the past');
+    err._yearError('Must be in the past');
     // prettier-ignore
     setTimeout(() => {year.value = '';}, 2000);
   }
   if (days.value > dayInTheMonth()) {
     err.dayError('Must be a valid day');
+    // prettier-ignore
+    setTimeout(() => {days.value = '';}, 2000);
   }
   if (month.value > 12 || month.value == 0) {
     err.monthError('Must be a valid month');
+    // prettier-ignore
+    setTimeout(() => {month.value = '';}, 2000);
   }
-  console.log(date.getMonth([meses]));
   //////////////////////////
-  function dayInTheMonth() {
-    let date = new Date(year.value, month.value, 0);
+};
 
-    return date.getDate();
+// btn.addEventListener('click',);
+
+btn.addEventListener('click', function () {
+  errResults();
+  const today = new Date();
+  let resYear = today.getFullYear() - year.value;
+  let resMonth = today.getMonth() + 1 - month.value;
+  let resDay = today.getDate() - days.value;
+
+  document.getElementById('container--display').innerHTML = '';
+
+  if (resDay < 0) {
+    resDay = days.value - today.getDate();
+    html.HTMLinput(resDay, resMonth, resYear);
+    console.log('conta menos');
+  }
+  if (resYear > 10 || resMonth > 10 || resDay > 10) {
+    document.querySelector('.container--days').style.marginRight = '-20px';
+    document.querySelector('.container--year').style.marginRight = '-20px';
+    document.querySelector('.container--month').style.marginRight = '-20px';
+  } else {
+    document.querySelector('.container--year').style.marginRight = '-50px';
+    document.querySelector('.container--month').style.marginRight = '-45px';
+    document.querySelector('.container--days').style.marginRight = '-45px';
   }
 });
+
 // Exemplo:
 // console.log(dayInTheMonth(8, 2023)); // Exibe 28.
 
@@ -238,5 +241,5 @@ let date = new Date();
 
 const today = date.getDate();
 const currentMonth = date.getMonth() + 1;
-console.log(today, currentMonth);
+// console.log(today, currentMonth);
 //O método getDate() retorna o dia atual do mês (de 1 a 31).
