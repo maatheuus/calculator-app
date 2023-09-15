@@ -184,6 +184,7 @@ const errResults = function () {
 
     return date.getDate();
   };
+  let date = new Date();
 
   if (year.value > date.getFullYear()) {
     err._yearError('Must be in the past');
@@ -202,11 +203,7 @@ const errResults = function () {
   }
   //////////////////////////
 };
-
-// btn.addEventListener('click',);
-
-btn.addEventListener('click', function () {
-  errResults();
+const inputs = function () {
   const today = new Date();
   let resYear = today.getFullYear() - year.value;
   let resMonth = today.getMonth() + 1 - month.value;
@@ -228,7 +225,10 @@ btn.addEventListener('click', function () {
     document.querySelector('.container--month').style.marginRight = '-45px';
     document.querySelector('.container--days').style.marginRight = '-45px';
   }
-});
+};
+
+// btn.addEventListener('click', inputs());
+btn.addEventListener('click', errResults());
 
 // Exemplo:
 // console.log(dayInTheMonth(8, 2023)); // Exibe 28.
@@ -237,9 +237,9 @@ btn.addEventListener('click', function () {
 // // prettier-ignore
 // console.log(meses[date.getMonth()]);
 // console.log(date.getDate());
-let date = new Date();
+// let date = new Date();
 
-const today = date.getDate();
-const currentMonth = date.getMonth() + 1;
+// const today = date.getDate();
+// const currentMonth = date.getMonth() + 1;
 // console.log(today, currentMonth);
 //O método getDate() retorna o dia atual do mês (de 1 a 31).
