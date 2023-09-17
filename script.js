@@ -2,16 +2,16 @@
 //selecionando os seletores
 const container = document.getElementById('container--display');
 const containerInput = document.getElementById('container--input');
-// const display = document.getElementById('display');
 const inputData = document.querySelectorAll('input');
 const btn = document.querySelector('.btn');
 const year = document.getElementById('input--year');
 const month = document.getElementById('input--month');
 const days = document.getElementById('input--day');
+const error = document.getElementById('conatiner--error');
+const dataStyle = document.querySelectorAll('.data');
+let data = document.querySelectorAll('.data');
 
-//quando clicar no botao é preciso arrumar o display pra quando não for possivel obter as entradas
-
-//colocando o primeiro HTML sem valores
+//
 const html = {
   HTMLdisplay() {
     const html = `
@@ -57,14 +57,6 @@ const html = {
   },
 };
 html.HTMLdisplay();
-
-// selecionando todas as entradas
-// let dayError = document.querySelector('.day-error');
-// let monthError = document.querySelector('.month-error');
-// let yearError = document.querySelector('.year-error');
-
-let error = document.getElementById('conatiner--error');
-let dataStyle = document.querySelectorAll('.data');
 
 const htmlData = function (msgError = 'This field is required') {
   const a = `
@@ -115,12 +107,6 @@ const err = {
   },
 };
 
-// const btnAgain = btn.addEventListener('click', function (e) {
-//   containerInput.remove(htmlData(e));
-// });
-let i = 0;
-let data = document.querySelectorAll('.data');
-
 const erro = function () {
   inputData.forEach(sty => {
     sty.removeAttribute('style');
@@ -131,115 +117,135 @@ const erro = function () {
   });
 };
 
-// function getAge() {
-//   let hoje = new Date();
-//   hoje.getFullYear() - year.value;
-//   hoje.getMonth() + 1 - month.value;
-//   hoje.getDate() - days.value;
+const dayInTheMonth = function () {
+  let date = new Date(year.value, month.value, 0);
+  return date.getDate();
+};
 
-//   return;
-// }
-// console.log(getAge());
-
-const errResults = function () {
-  const valor = [Number(days.value), Number(month.value), Number(year.value)];
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////
-  //Erros da entrada
-  // console.log(valor);
-  if (isNaN(...valor)) {
-    htmlData('X Invalid input');
-  }
-  setTimeout(() => {
-    error.innerText = '';
-
-    inputData.forEach(sty => {
-      sty.removeAttribute('style');
-      sty.style.border = '1px solid #808080ba';
-    });
-    // prettier-ignore
-    dataStyle.forEach(color => {color.style.color = '#9a9999';});
-  }, 1000);
-  console.log(valor);
-
-  if (days.value.length != 2 || days.value < 0) {
-    err.dayError('Must be a valid day');
+const timeOut = {
+  cleanDays() {
     // prettier-ignore
     setTimeout(() => {days.value = '';}, 2000);
-  }
-  if (month.value.length != 2 || month.value < 0) {
-    err.monthError('Must be a valid month');
+  },
+  cleanMonth() {
     // prettier-ignore
     setTimeout(() => {month.value = '';}, 2000);
-  }
-  if (year.value.length != 4 || year.value < 0) {
-    err.yearError('Must be a valid year');
+  },
+  cleanYear() {
     // prettier-ignore
     setTimeout(() => {year.value = '';}, 2000);
-  }
+  },
 
+  changeColor() {
+    setTimeout(() => {
+      error.innerText = '';
+
+      inputData.forEach(sty => {
+        sty.removeAttribute('style');
+        sty.style.border = '1px solid #808080ba';
+      });
+      // prettier-ignore
+      dataStyle.forEach(color => {color.style.color = '#9a9999';});
+    }, 2000);
+  },
+};
+
+// Função das entradas
+
+const valor = [Number(days.value), Number(month.value), Number(year.value)];
+const results = {
+  errorInputs() {
+    if (isNaN(...valor)) {
+      htmlData('X Invalid input');
+    }
+
+    timeOut.changeColor();
+
+    if (days.value.length != 2 || days.value < 0) {
+      err.dayError('Must be a valid day');
+      timeOut.cleanDays();
+    }
+    if (month.value.length != 2 || month.value < 0) {
+      err.monthError('Must be a valid month');
+      timeOut.cleanMonth();
+    }
+    if (year.value.length != 4 || year.value < 0) {
+      err.yearError('Must be a valid year');
+      timeOut.cleanYear();
+    }
+
+    ////////////////////////////////////////////////////////////////////
+    let date = new Date();
+
+    if (year.value > date.getFullYear()) {
+      err._yearError('Must be in the past');
+      timeOut.cleanYear();
+    } else if (days.value > dayInTheMonth()) {
+      err.dayError('Must be a valid day');
+      timeOut.cleanDays();
+    } else if (month.value > 12 || month.value == 0) {
+      err.monthError('Must be a valid month');
+      timeOut.cleanMonth();
+    } else {
+      this.validInputs();
+    }
+  },
   ////////////////////////////////////////////////////////////////////
-  const dayInTheMonth = function () {
-    let date = new Date(year.value, month.value, 0);
 
-    return date.getDate();
-  };
-  let date = new Date();
+  validInputs() {
+    const today = new Date();
+    let resYear = today.getFullYear() - year.value;
+    let resMonth = today.getMonth() + 1 - month.value;
+    let resDay = today.getDate() - days.value;
 
-  if (year.value > date.getFullYear()) {
-    err._yearError('Must be in the past');
-    // prettier-ignore
-    setTimeout(() => {year.value = '';}, 2000);
-  }
-  if (days.value > dayInTheMonth()) {
-    err.dayError('Must be a valid day');
-    // prettier-ignore
-    setTimeout(() => {days.value = '';}, 2000);
-  }
-  if (month.value > 12 || month.value == 0) {
-    err.monthError('Must be a valid month');
-    // prettier-ignore
-    setTimeout(() => {month.value = '';}, 2000);
-  }
-  //////////////////////////
-};
-const inputs = function () {
-  const today = new Date();
-  let resYear = today.getFullYear() - year.value;
-  let resMonth = today.getMonth() + 1 - month.value;
-  let resDay = today.getDate() - days.value;
-
-  document.getElementById('container--display').innerHTML = '';
-
-  if (resDay < 0) {
-    resDay = days.value - today.getDate();
+    document.getElementById('container--display').innerHTML = '';
     html.HTMLinput(resDay, resMonth, resYear);
-    console.log('conta menos');
-  }
-  if (resYear > 10 || resMonth > 10 || resDay > 10) {
-    document.querySelector('.container--days').style.marginRight = '-20px';
-    document.querySelector('.container--year').style.marginRight = '-20px';
-    document.querySelector('.container--month').style.marginRight = '-20px';
-  } else {
-    document.querySelector('.container--year').style.marginRight = '-50px';
-    document.querySelector('.container--month').style.marginRight = '-45px';
-    document.querySelector('.container--days').style.marginRight = '-45px';
-  }
+
+    //arrumar a distância das letras dos números
+
+    if (resDay < days.value.length) {
+      resDay = days.value - today.getDate();
+    } else if (resYear > 10 || resMonth < 10 || resDay > 10) {
+      document.querySelector('.container--days').style.marginRight = '-20px';
+      document.querySelector('.container--year').style.marginRight = '-20px';
+      document.querySelector('.container--month').style.marginRight = '-20px';
+    } else {
+      document.querySelector('.container--year').style.marginRight = '-50px';
+      document.querySelector('.container--month').style.marginRight = '-45px';
+      document.querySelector('.container--days').style.marginRight = '-45px';
+    }
+
+    // setTimeout(() => {});
+    // if (valor > 1) {
+    //   html.HTMLdisplay();
+    //   timeOut;
+    // }
+  },
 };
 
-// btn.addEventListener('click', inputs());
-btn.addEventListener('click', errResults());
+btn.addEventListener('click', function (e) {
+  results.errorInputs();
+});
+// btn.addEventListener('click', function () {
+//   const validInputs = (...valor) => valor.every(inp => Number.isFinite(inp));
+//   const allPositive = (...valor) => valor.every(inp => inp > 0);
 
-// Exemplo:
-// console.log(dayInTheMonth(8, 2023)); // Exibe 28.
+//   allPositive(Number(days.value), Number(month.value), Number(year.value)) &&
+//   validInputs(Number(days.value), Number(month.value), Number(year.value))
+//     ? results.validInputs()
+//     : results.errorInputs();
 
-// let id = (Date.now() + '').slice(-10);
-// // prettier-ignore
-// console.log(meses[date.getMonth()]);
-// console.log(date.getDate());
-// let date = new Date();
+//   console.log(Number(days.value), Number(month.value), Number(year.value));
+// });
+// Arrumar pra quando passar um certo tempo, limpar as entradas e zerar novamente
+//arrumar quando for número negativo no mês
 
-// const today = date.getDate();
-// const currentMonth = date.getMonth() + 1;
-// console.log(today, currentMonth);
-//O método getDate() retorna o dia atual do mês (de 1 a 31).
+// let sorted = false;
+// btnSort.addEventListener('click', function (e) {
+//   e.preventDefault();
+//   displayMovements(currentAccount.movements, !sorted);
+//   sorted = !sorted; //Isso está invertendo a váriavel, para cada vez que for clicada
+//   //ela vire true ou false;
+// });
+
+/* talvez colocar tudo dentro de um objeto pra poder relaizar essa tarefa, então fazer um if com click caso tenha atingido tal result */
