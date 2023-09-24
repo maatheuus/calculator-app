@@ -12,6 +12,7 @@ const dataStyle = document.querySelectorAll('.data');
 let data = document.querySelectorAll('.data');
 
 //
+
 const html = {
   HTMLdisplay() {
     const html = `
@@ -125,15 +126,21 @@ const erro = function () {
 const timeOut = {
   cleanDays() {
     // prettier-ignore
-    setTimeout(() => {days.value = '';}, 2000);
+    setTimeout(() => {
+      days.value = '';
+    }, 2000);
   },
   cleanMonth() {
     // prettier-ignore
-    setTimeout(() => {month.value = '';}, 2000);
+    setTimeout(() => {
+      month.value = '';
+    }, 2000);
   },
   cleanYear() {
     // prettier-ignore
-    setTimeout(() => {year.value = '';}, 2000);
+    setTimeout(() => {
+      year.value = '';
+    }, 2000);
   },
 
   changeColor() {
@@ -145,14 +152,16 @@ const timeOut = {
         sty.style.border = '1px solid #808080ba';
       });
       // prettier-ignore
-      dataStyle.forEach(color => {color.style.color = '#9a9999';});
+      dataStyle.forEach(color => {
+        color.style.color = '#9a9999';
+      });
     }, 2000);
   },
 };
 
 // Função das entradas
 
-const valor = [Number(days.value), Number(month.value), Number(year.value)];
+const valor = [+days.value, +month.value, +year.value];
 const date = new Date();
 const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
@@ -198,26 +207,35 @@ const results = {
   validInputs() {
     let resYear = date.getFullYear() - year.value;
     let resMonth = date.getMonth() + 1 - month.value;
-    let resDay = lastDay.getDate() - days.value;
+    let resDay = date.getDate() - days.value;
 
     document.getElementById('container--display').innerHTML = '';
     //////////////////////////////////////////////////////////////////////////
     // const date = new Date();
     const lastDayDate = lastDay.toLocaleDateString();
     const numero = lastDay.getDate() - days.value;
-    console.log(lastDayDate);
-    console.log(numero, lastDay.getDate());
-    console.log(resMonth, '/', date.getMonth() + 1);
-    console.log(date.getDate() - days.value, '/', date.getMonth() + 1);
-
-    html.HTMLinput(resDay, resMonth, resYear);
 
     //////////////////////////////////////////////////////////////////////////
-
+    // (function () {
+    //   for (let i = 0; i <= lastDay.getDate(); i++) {
+    //     console.log(i - lastDay.getDate());
+    //   }
+    // })();
     //arrumar a distância das letras dos números
 
-    // if (resDay) {
-    // }
+    if (resDay < 0) {
+      // resDay = lastDay.getDate() - i;
+      // const loopDay = function () {
+      //   for (let i = 0; i <= lastDay.getDate(); i++) {
+      //     console.log(i - 20);
+      //   }
+      // };
+      // resDay = lastDay.getDate();
+      resMonth = date.getMonth() + 1 - 1 - month.value;
+      // html.HTMLinput(loopDay, resMonth, resYear);
+    } else {
+      html.HTMLinput(resDay, resMonth, resYear);
+    }
     // if (days.value > date.getDate()) {
     //   resDay = date.getDate() - days.value;
 
@@ -250,7 +268,7 @@ document.addEventListener('keypress', function (e) {
   }
 });
 // btn.addEventListener('click', function () {
-//   const validInputs = (...valor) => valor.every(inp => Number.isFinite(inp));
+//   const validInputs = (...valor) => valor.every(inp => +.isFinite(inp));
 //   const allPositive = (...valor) => valor.every(inp => inp > 0);
 
 //   allPositive(Number(days.value), Number(month.value), Number(year.value)) &&
