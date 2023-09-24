@@ -211,6 +211,7 @@ const results = {
     console.log(date.getDate() - days.value, '/', date.getMonth() + 1);
 
     html.HTMLinput(resDay, resMonth, resYear);
+
     //////////////////////////////////////////////////////////////////////////
 
     //arrumar a distância das letras dos números
