@@ -124,8 +124,14 @@ span.data {
   transform: translate(428px, 23px);
   cursor: pointer;
 }
-.btn:hover {
+.btn:hover,
+img:hover {
   background-color: black;
+}
+img {
+  width: 30px;
+  padding: 6px;
+  border-radius: 50%;
 }
 
 @media (max-width: 700px) {
@@ -176,6 +182,7 @@ span.data {
   font-size: 55px;
   margin-right: -8px;
   margin-left: 19px;
+  letter-spacing: -2px;
 }
 
 .attribution {

@@ -11,8 +11,6 @@ const error = document.getElementById('conatiner--error');
 const dataStyle = document.querySelectorAll('.data');
 let data = document.querySelectorAll('.data');
 
-//
-
 const html = {
   HTMLdisplay() {
     const html = `
@@ -159,134 +157,84 @@ const timeOut = {
   },
 };
 
-// Função das entradas
-
-const valor = [+days.value, +month.value, +year.value];
 const date = new Date();
-const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+const lastDay = new Date(date.getFullYear(), month.value + 1, 0);
 
-const results = {
-  errorInputs() {
-    if (isNaN(...valor)) {
-      htmlData('X Invalid input');
-    }
-    // const date = new Date();
+function validInputs() {
+  let resYear = date.getFullYear() - year.value;
+  let resMonth = date.getMonth() + 1 - month.value;
+  let resDay = date.getDate() - days.value;
+  let sum = resDay + lastDay.getDate();
+  document.getElementById('container--display').innerHTML = '';
+  console.log(resDay.valueOf() > 10);
+  console.log(resDay > 10);
+  console.log(resDay > resDay.toPrecision(1));
+  console.log(resDay.toPrecision(1));
 
-    timeOut.changeColor();
+  if (resDay < 0) {
+    resMonth = date.getMonth() + 1 - 1 - month.value;
+    html.HTMLinput(sum, resMonth, resYear);
+  } else {
+    html.HTMLinput(resDay, resMonth, resYear);
+  }
+  //////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////
+  if (resYear > 10 || resMonth < 10 || resDay > 10) {
+    // document.querySelector('.container--days').style.marginRight = '-20px';
+    document.querySelector('.container--year').style.letterSpacing = '-2px';
+    document.querySelector('.container--month').style.marginRight = '-20px';
+  } else {
+    document.querySelector('.container--year').style.marginRight = '-50px';
+    document.querySelector('.container--month').style.marginRight = '-45px';
+    // document.querySelector('.container--days').style.marginRight = '-45px';
+  }
+}
 
-    if (days.value.length != 2 || days.value < 0) {
-      err.dayError('Must be a valid day');
-      timeOut.cleanDays(2);
-    }
-    if (month.value.length != 2 || month.value < 0) {
-      err.monthError('Must be a valid month');
-      timeOut.cleanMonth(2);
-    }
-    if (year.value.length != 4 || year.value < 0) {
-      err.yearError('Must be a valid year');
-      timeOut.cleanYear(2);
-    }
+btn.addEventListener('click', function () {
+  timeOut.changeColor();
 
-    ////////////////////////////////////////////////////////////////////
+  if (
+    days.value.length != 2 ||
+    days.value < 0 ||
+    !Number.isFinite(+days.value)
+  ) {
+    err.dayError('Must be a valid day');
+    timeOut.cleanDays(2);
+  }
+  if (
+    month.value.length != 2 ||
+    month.value < 0 ||
+    !Number.isFinite(+month.value)
+  ) {
+    err.monthError('Must be a valid month');
+    timeOut.cleanMonth(2);
+  }
 
+  if (
+    year.value.length != 4 ||
+    year.value < 0 ||
+    !Number.isFinite(+year.value)
+  ) {
+    err.yearError('Must be a valid year');
+    timeOut.cleanYear(2);
+  } else if (
+    Number.isFinite(+year.value) &&
+    Number.isFinite(+month.value) &&
+    Number.isFinite(+days.value)
+  ) {
     if (year.value > date.getFullYear()) {
       err._yearError('Must be in the past');
       timeOut.cleanYear(2);
-    } else if (days.value > lastDay) {
+    }
+    if (days.value > lastDay.getDate()) {
       err.dayError('Must be a valid day');
       timeOut.cleanDays(2);
-    } else if (month.value > 12 || month.value == 0) {
+    }
+    if (month.value > 12 || month.value == 0) {
       err.monthError('Must be a valid month');
       timeOut.cleanMonth(2);
     } else {
-      this.validInputs();
+      validInputs();
     }
-  },
-  ////////////////////////////////////////////////////////////////////
-
-  validInputs() {
-    let resYear = date.getFullYear() - year.value;
-    let resMonth = date.getMonth() + 1 - month.value;
-    let resDay = date.getDate() - days.value;
-
-    document.getElementById('container--display').innerHTML = '';
-    //////////////////////////////////////////////////////////////////////////
-    // const date = new Date();
-    const lastDayDate = lastDay.toLocaleDateString();
-    const numero = lastDay.getDate() - days.value;
-
-    //////////////////////////////////////////////////////////////////////////
-    // (function () {
-    //   for (let i = 0; i <= lastDay.getDate(); i++) {
-    //     console.log(i - lastDay.getDate());
-    //   }
-    // })();
-    //arrumar a distância das letras dos números
-
-    if (resDay < 0) {
-      // resDay = lastDay.getDate() - i;
-      // const loopDay = function () {
-      //   for (let i = 0; i <= lastDay.getDate(); i++) {
-      //     console.log(i - 20);
-      //   }
-      // };
-      // resDay = lastDay.getDate();
-      resMonth = date.getMonth() + 1 - 1 - month.value;
-      // html.HTMLinput(loopDay, resMonth, resYear);
-    } else {
-      html.HTMLinput(resDay, resMonth, resYear);
-    }
-    // if (days.value > date.getDate()) {
-    //   resDay = date.getDate() - days.value;
-
-    //   html.HTMLinput(resDay, resMonth, resYear);
-    // }
-    // else {
-    //   resMonth = date.getMonth() + 1 - month.value;
-    //   html.HTMLinput(resDay, resMonth, resYear);
-    // }
-
-    // if (resYear > 10 || resMonth < 10 || resDay > 10) {
-    //   // document.querySelector('.container--days').style.marginRight = '-20px';
-    //   document.querySelector('.container--year').style.marginRight = '-20px';
-    //   document.querySelector('.container--month').style.marginRight = '-20px';
-    // } else {
-    //   document.querySelector('.container--year').style.marginRight = '-50px';
-    //   document.querySelector('.container--month').style.marginRight = '-45px';
-    //   // document.querySelector('.container--days').style.marginRight = '-45px';
-    // }
-  },
-};
-
-btn.addEventListener('click', function () {
-  results.errorInputs();
-});
-document.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    results.errorInputs();
-    e.target.blur();
   }
 });
-// btn.addEventListener('click', function () {
-//   const validInputs = (...valor) => valor.every(inp => +.isFinite(inp));
-//   const allPositive = (...valor) => valor.every(inp => inp > 0);
-
-//   allPositive(Number(days.value), Number(month.value), Number(year.value)) &&
-//   validInputs(Number(days.value), Number(month.value), Number(year.value))
-//     ? results.validInputs()
-//     : results.errorInputs();
-
-//   console.log(Number(days.value), Number(month.value), Number(year.value));
-// });
-// Arrumar pra quando passar um certo tempo, limpar as entradas e zerar novamente
-//arrumar quando for número negativo no mês
-
-// let sorted = false;
-// btnSort.addEventListener('click', function (e) {
-//   e.preventDefault();
-//   displayMovements(currentAccount.movements, !sorted);
-//   sorted = !sorted; //Isso está invertendo a váriavel, para cada vez que for clicada
-//   //ela vire true ou false;
-// });
-
-/* talvez colocar tudo dentro de um objeto pra poder relaizar essa tarefa, então fazer um if com click caso tenha atingido tal result */
