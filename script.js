@@ -179,11 +179,13 @@ function validInputs() {
     document.querySelector('.container--month').style.width = '50px';
   else document.querySelector('.container--month').style.width = '32px';
 
-  if (resYear.valueOf() > 10)
-    document.querySelector('.container--year').style.width = '60px';
   if (resYear.valueOf() >= 100)
     document.querySelector('.container--year').style.width = '82px';
+  else if (resYear.valueOf() > 10)
+    document.querySelector('.container--year').style.width = '60px';
   else document.querySelector('.container--year').style.width = '32px';
+
+  // else document.querySelector('.container--year').style.width = '62px';
 }
 
 btn.addEventListener('click', function () {
