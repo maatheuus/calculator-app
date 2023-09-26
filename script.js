@@ -1,5 +1,5 @@
 'use strict';
-//selecionando os seletores
+//selecionando os elementos
 const container = document.getElementById('container--display');
 const containerInput = document.getElementById('container--input');
 const inputData = document.querySelectorAll('input');
@@ -9,8 +9,9 @@ const month = document.getElementById('input--month');
 const days = document.getElementById('input--day');
 const error = document.getElementById('conatiner--error');
 const dataStyle = document.querySelectorAll('.data');
-let data = document.querySelectorAll('.data');
 
+////////////////////////////////////////////////////////////
+// Substituindo o HTML de entrada pelo da saída
 const html = {
   HTMLdisplay() {
     const html = `
@@ -38,16 +39,16 @@ const html = {
     const html = `
       <div id="display--result">
         <div class="saida">
-            <div class="container-saida container--year">${years}</div>
+            <div class="container-saida container--year" data-val="${years}">- -</div>
             years
         </div>
       
         <div class="saida">
-            <div class="container-saida container--month">${months}</div>
+            <div class="container-saida container--month" data-val="${months}">- -</div>
             months
         </div>
       <div class="saida">
-            <div class="container-saida container--days">${days}</div>
+            <div class="container-saida container--days" data-val="${days}">- -</div>
             days
         </div>
       </div>
@@ -56,7 +57,8 @@ const html = {
   },
 };
 html.HTMLdisplay();
-
+////////////////////////////////////////////////////////////
+// Erros de entrada
 const htmlData = function (msgError = 'This field is required') {
   const a = `
   <div class="day-error">${msgError}</div>
@@ -105,22 +107,8 @@ const err = {
     document.querySelector('.data--year').style.color = 'red';
   },
 };
-
-const erro = function () {
-  inputData.forEach(sty => {
-    sty.removeAttribute('style');
-    sty.style.border = '1px solid red';
-  });
-  dataStyle.forEach(color => {
-    color.style.color = 'red';
-  });
-};
-
-// const dayInTheMonth = function () {
-//   let date = new Date(year.value, month.value, 0);
-//   return date.getDate();
-// };
-
+////////////////////////////////////////////////////////////
+// Limpando as entradas
 const timeOut = {
   cleanDays() {
     // prettier-ignore
@@ -156,63 +144,76 @@ const timeOut = {
     }, 2000);
   },
 };
-
+////////////////////////////////////////////////////////////
+// Lógica
 const date = new Date();
 const lastDay = new Date(date.getFullYear(), month.value + 1, 0);
+const lastDai = new Date(date.getFullYear(), month.value + 1, 0);
 
 function validInputs() {
+  document.getElementById('container--display').innerHTML = '';
+
   let resYear = date.getFullYear() - year.value;
   let resMonth = date.getMonth() + 1 - month.value;
   let resDay = date.getDate() - days.value;
   let sum = resDay + lastDay.getDate();
-  document.getElementById('container--display').innerHTML = '';
-  console.log(resDay.valueOf() > 10);
-  console.log(resDay > 10);
-  console.log(resDay > resDay.toPrecision(1));
-  console.log(resDay.toPrecision(1));
 
+  // testando se o dia e o mês é menor que 0
   if (resDay < 0) {
     resMonth = date.getMonth() + 1 - 1 - month.value;
     html.HTMLinput(sum, resMonth, resYear);
+  } else if (resMonth < 0) {
+    resMonth += 12;
+    resYear -= 1;
+    html.HTMLinput(resDay, resMonth, resYear);
   } else {
     html.HTMLinput(resDay, resMonth, resYear);
   }
-  //////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////
-  if (resYear > 10 || resMonth < 10 || resDay > 10) {
-    // document.querySelector('.container--days').style.marginRight = '-20px';
-    document.querySelector('.container--year').style.letterSpacing = '-2px';
-    document.querySelector('.container--month').style.marginRight = '-20px';
-  } else {
-    document.querySelector('.container--year').style.marginRight = '-50px';
-    document.querySelector('.container--month').style.marginRight = '-45px';
-    // document.querySelector('.container--days').style.marginRight = '-45px';
-  }
+
+  // Testando se o tamnho é maior para ajustar a letra
+  if (resDay.valueOf() > 10 || resDay.valueOf() < 0)
+    document.querySelector('.container--days').style.width = '64px';
+  else document.querySelector('.container--days').style.width = '32px';
+
+  if (resMonth.valueOf() > 10)
+    document.querySelector('.container--month').style.width = '50px';
+  else document.querySelector('.container--month').style.width = '32px';
+
+  if (resYear.valueOf() > 10)
+    document.querySelector('.container--year').style.width = '60px';
+  if (resYear.valueOf() >= 100)
+    document.querySelector('.container--year').style.width = '82px';
+  else document.querySelector('.container--year').style.width = '32px';
 }
 
 btn.addEventListener('click', function () {
+  // Possíveis erros de entrada
   timeOut.changeColor();
 
-  if (
+  if (+days.value == ' ' && +month.value == ' ' && +year.value == ' ') {
+    htmlData();
+  } else if (
     days.value.length != 2 ||
     days.value < 0 ||
+    days.value > lastDay.getDate() ||
+    days.value == 0 ||
     !Number.isFinite(+days.value)
   ) {
     err.dayError('Must be a valid day');
     timeOut.cleanDays(2);
-  }
-  if (
+  } else if (
     month.value.length != 2 ||
     month.value < 0 ||
+    month.value > 12 ||
+    month.value == 0 ||
     !Number.isFinite(+month.value)
   ) {
     err.monthError('Must be a valid month');
     timeOut.cleanMonth(2);
-  }
-
-  if (
+  } else if (
     year.value.length != 4 ||
     year.value < 0 ||
+    year.value == 0 ||
     !Number.isFinite(+year.value)
   ) {
     err.yearError('Must be a valid year');
@@ -222,19 +223,38 @@ btn.addEventListener('click', function () {
     Number.isFinite(+month.value) &&
     Number.isFinite(+days.value)
   ) {
-    if (year.value > date.getFullYear()) {
+    //testando se o ano está no passado
+    if (year.value > date.getFullYear() || !Number.isFinite(+year.value)) {
       err._yearError('Must be in the past');
       timeOut.cleanYear(2);
-    }
-    if (days.value > lastDay.getDate()) {
-      err.dayError('Must be a valid day');
-      timeOut.cleanDays(2);
-    }
-    if (month.value > 12 || month.value == 0) {
-      err.monthError('Must be a valid month');
-      timeOut.cleanMonth(2);
     } else {
+      // Exibindo as entradas
       validInputs();
+
+      // Animação dos números
+      let containerSaida = document.querySelectorAll('.container-saida');
+      let interval = 1000;
+
+      containerSaida.forEach(containerValue => {
+        let startValue = 0;
+        let endValue = parseInt(containerValue.getAttribute('data-val'));
+        let duration = Math.floor(interval / endValue);
+
+        let counter = setInterval(function () {
+          startValue += 1;
+          containerValue.textContent = startValue;
+          if (startValue === endValue) {
+            clearInterval(counter);
+          } else if (endValue == 0 || endValue < 0) {
+            clearInterval(counter);
+          }
+          if (endValue == 0) {
+            startValue += 0;
+            containerValue.textContent = endValue;
+            clearInterval(counter);
+          }
+        }, duration);
+      });
     }
   }
 });
