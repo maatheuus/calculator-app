@@ -171,17 +171,17 @@ function validInputs() {
   }
 
   // Testando se o tamnho é maior para ajustar a letra
-  if (resDay.valueOf() > 10 || resDay.valueOf() < 0)
+  if (resDay.valueOf() >= 10 || resDay.valueOf() <= 0)
     document.querySelector('.container--days').style.width = '64px';
   else document.querySelector('.container--days').style.width = '32px';
 
-  if (resMonth.valueOf() > 10)
+  if (resMonth.valueOf() >= 10)
     document.querySelector('.container--month').style.width = '50px';
   else document.querySelector('.container--month').style.width = '32px';
 
   if (resYear.valueOf() >= 100)
     document.querySelector('.container--year').style.width = '82px';
-  else if (resYear.valueOf() > 10)
+  else if (resYear.valueOf() >= 10)
     document.querySelector('.container--year').style.width = '60px';
   else document.querySelector('.container--year').style.width = '32px';
 
