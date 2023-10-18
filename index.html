@@ -4,8 +4,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- displays site properly based on user's device -->
-
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="style.css">
 
@@ -15,20 +13,23 @@
 <body>
 
   <main>
-    <div id="container--input">
+    <form id="container--input">
       <span class="data data--day">Day
-        <input type="text" id="input--day" placeholder="DD" name="data" style="border: 1px solid #808080ba;"></input>
+        <input class="input" type="number" id="input--day" placeholder="DD" name="data"
+          style="border: 1px solid #808080ba;"></input>
       </span>
       <span class="data data--month">Month
-        <input type="text" id="input--month" placeholder="MM" name="data" style="border: 1px solid #808080ba;"></input>
+        <input class="input" type="number" id="input--month" placeholder="MM" name="data"
+          style="border: 1px solid #808080ba;"></input>
       </span>
       <span class="data data--year">Year
-        <input type="text" id="input--year" placeholder="YYYY" name="data" style="border: 1px solid #808080ba;"></input>
+        <input class="input" type="number" id="input--year" placeholder="YYYY" name="data"
+          style="border: 1px solid #808080ba;"></input>
       </span>
-      <div class="btn"><img src="assets/images/icon-arrow.svg" alt=""></div>
+      <button class="btn"><img src="assets/images/icon-arrow.svg" alt=""></button>
 
       <div id="conatiner--error"></div>
-    </div>
+    </form>
 
     <div id="container--display"></div>
 
