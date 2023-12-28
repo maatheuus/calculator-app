@@ -1,6 +1,8 @@
 # Frontend Mentor - Age calculator app
 
-## Welcome! 👋
+![Image of the app](<assets/images/calculator age.png>)
+
+## Olá! 👋
 
 O úsuario é capaz de:
 
