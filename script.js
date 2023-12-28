@@ -195,8 +195,8 @@ function inputErrors() {
     validInputs();
 
     // Animação dos números
-    let containerSaida = document.querySelectorAll('.container-saida');
-    let interval = 1000;
+    const containerSaida = document.querySelectorAll('.container-saida');
+    const interval = 1000;
 
     containerSaida.forEach(containerValue => {
       let startValue = 0;
@@ -221,13 +221,13 @@ function inputErrors() {
   }
 }
 
+const getForm = document.getElementById('container--input');
+
 const init = function () {
-  document
-    .getElementById('container--input')
-    .addEventListener('submit', function (e) {
-      e.preventDefault();
-      this.blur();
-      inputErrors();
-    });
+  getForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.blur();
+    inputErrors();
+  });
 };
 init();
