@@ -151,7 +151,7 @@ function validInputs() {
     html.renderInput(resDay, resMonth, resYear);
   }
 
-  // Testando se o tamanho é maior para ajustar a letra
+  // Testando se o tamanho do número é maior para ajustar a letra
   if (resDay.valueOf() >= 10 || resDay.valueOf() <= 0)
     document.querySelector('.container--days').style.width = '64px';
   else document.querySelector('.container--days').style.width = '32px';
@@ -166,10 +166,11 @@ function validInputs() {
     document.querySelector('.container--year').style.width = '60px';
   else document.querySelector('.container--year').style.width = '32px';
 }
-// Erros de entrada
 
+// Erros de entrada
 function inputErrors() {
   timeOut.changeColor();
+
   // Possíveis erros de entrada
   if (days.value < 0 || days.value == '' || days.value > lastDay.getDate()) {
     err.dayError('Must be a valid day');
@@ -220,13 +221,13 @@ function inputErrors() {
   }
 }
 
-const getForm = document.getElementById('container--input');
-
 const init = function () {
-  getForm.addEventListener('submit', function (e) {
-    e.preventDefault();
-    this.blur();
-    inputErrors();
-  });
+  document
+    .getElementById('container--input')
+    .addEventListener('submit', function (e) {
+      e.preventDefault();
+      this.blur();
+      inputErrors();
+    });
 };
 init();

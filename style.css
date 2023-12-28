@@ -10,18 +10,23 @@
 body {
   margin: 0px;
   padding: 0px;
-  background-color: hsl(0, 0%, 86%);
+  background-image: linear-gradient(
+    to right bottom,
+    hsla(259, 100%, 65%, 0.484) 100%,
+    transparent
+  );
 }
 
 main {
-  background-color: hsl(0, 0%, 100%);
+  background-color: hsla(0, 0%, 99%, 0.8);
+
   border-radius: 21px 21px 130px 21px;
 
   margin: auto;
   margin-top: 50px;
   padding: 10px;
 
-  width: 1440px;
+  width: 50%;
   height: 500px;
 }
 
@@ -38,7 +43,7 @@ main {
 /* Parte de cima do display*/
 
 #container--input {
-  background-color: hsl(0, 0%, 99%);
+  background-color: hsla(0, 0%, 99%, 0.2);
   border-bottom: 1px solid #808080ba;
   margin: auto;
 
@@ -65,15 +70,7 @@ main {
   }
 }
 
-@media (max-width: 700px) {
-  #container--input > .data {
-    font-size: 15px;
-    display: inline-block;
-    margin-left: 15px;
-  }
-}
-
-span.data {
+label.data {
   color: #9a9999;
   font-family: 'Poppins-Regular';
   font-size: 14px;
@@ -88,7 +85,7 @@ span.data {
 }
 
 @media (max-width: 700px) {
-  #container--input > span > input {
+  #container--input > label > input {
     display: block;
     border-radius: 6px;
     border: 1px solid #808080ba;
@@ -100,9 +97,10 @@ span.data {
   }
 }
 
-#container--input > span > input {
+#container--input > label > input {
   display: block;
   cursor: pointer;
+  color: hsl(259, 100%, 65%);
 
   border-radius: 4px;
 
@@ -111,6 +109,13 @@ span.data {
 
   margin-top: 5px;
   margin-left: 8px;
+}
+#container--input > label > input:focus {
+  outline: 1px solid hsl(259, 100%, 65%);
+  color: hsl(259, 100%, 65%);
+}
+#container--input > label > input::placeholder {
+  color: hsl(259, 100%, 65%);
 }
 
 #input--day,
